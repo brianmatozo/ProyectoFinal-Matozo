@@ -1,0 +1,29 @@
+.Spacing {
+  width: 100px;
+}
+@media (min-width: 768px) {
+  .Spacing {
+    width: 350px;
+  }
+}
+@media (min-width: 992px) {
+  .Spacing {
+    width: 500px;
+  }
+}
+
+.bgnaranja {
+  background-color: rgb(198, 123, 24);
+}
+
+.btnorange {
+  background-color: rgb(198, 123, 24);
+  border: solid rgb(198, 123, 24);
+}
+
+.cart-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+}/*# sourceMappingURL=style.css.map */

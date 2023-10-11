@@ -1,0 +1,35 @@
+$mobile: 576px;
+$tablet: 768px;
+$desktop: 992px;
+
+@mixin responsive-spacing($property, $mobile-value, $tablet-value, $desktop-value) {
+  #{$property}: $mobile-value;
+  
+  @media (min-width: $tablet) {
+    #{$property}: $tablet-value;
+  }
+  
+  @media (min-width: $desktop) {
+    #{$property}: $desktop-value;
+  }
+}
+
+.Spacing {
+    @include responsive-spacing(width, 100px, 350px, 500px);
+}
+
+.bgnaranja{
+    background-color: rgb(198, 123, 24);
+}
+
+.btnorange{
+    background-color: rgb(198, 123, 24);
+    border: solid rgb(198, 123, 24);
+}
+
+.cart-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
