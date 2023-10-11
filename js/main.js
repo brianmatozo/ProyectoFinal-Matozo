@@ -39,3 +39,4 @@ $(document).ready(function () {
         $(".floating-cart").toggleClass("show");
     });
 });
+

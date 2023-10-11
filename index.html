@@ -117,7 +117,7 @@
         Cart
     </button>
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cart-dropdown">
-        <ul id="" class="list-group">
+        <ul id="product-info-container" class="list-group">
             <!-- Example: <li class="list-group-item">Product 1 - $10.00</li> -->
            <li class="list-group-item">item 1 - 10000</li>
         </ul>
@@ -167,10 +167,6 @@
     </div>
 </section>
 
-<section id="product-info-container" class="bg-danger py-5">
-
-</section>
-
 <!-- footer -->
 <footer class="bg-dark text-white text-center py-3">
     <span class="mb-3 mb-md-0 py-2">© 2023 Icon, Inc</span>
@@ -183,6 +179,32 @@
 </footer>
 
 </body>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const buyButtons = document.querySelectorAll(".btnorange");
+
+    // Add a click event listener to each button
+    buyButtons.forEach(button => {
+        button.addEventListener("click", function(event) {
+
+            const productName = button.getAttribute("data-name");
+            const productValor = button.getAttribute("data-price");
+
+            // parte innerhtml
+            const productInfoElement = document.createElement("li");
+            productInfoElement.innerHTML = `<p>Product: ${productName}</p><p>Price: ${productValor}</p>`;
+            const productInfoContainer = document.getElementById("product-info-container"); 
+            
+            // boton de borrar
+            // productInfoContainer.innerHTML = '';
+            
+            productInfoContainer.appendChild(productInfoElement);
+        });
+    });
+});
+</script>
+    
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
