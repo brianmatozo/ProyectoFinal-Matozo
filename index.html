@@ -122,13 +122,13 @@
     <div class="dropdown-menu dropdown-menu-right Spacing" aria-labelledby="cart-dropdown">
         <div id="product-info-container">
             <!-- <ul class="list-group list-group-horizontal">
-                <li class="list-group-item ">Product: Item 3 Price: $13994</li>
+                <li class="list-group-item text-primary-emphasis">Product: Item 3 Price: $13994</li>
                 <li><a href="#" id="closeBtn" class="list-group-item btn btn-danger">x</a></li>
             </ul> -->
         </div>
 
-        <div class="list-group list-group-flush fw-bold py-2">
-            <li class="list-group-item">TOTAL - 200000000</li>
+        <div class="list-group list-group-flush fw-bold py-2 text-center">
+            <h4 class="list-group-item">Total: <span id="total">$0.00</span></h4>
         </div>
     </div>
 </div>
@@ -144,7 +144,7 @@
                     <div class="card-body">
                         <h5 class="card-title description">Item 1</h5>
                         <p class="card-text value">$6.995,50</p>
-                        <a href="#" id="btn1" data-name="Item 1" data-price="$6995" class="btn btn-primary btnorange">Comprar Ahora</a>
+                        <a href="#" id="btn1" data-name="Item 1" data-valor="6995.50" class="btn btn-primary btnorange">Comprar Ahora</a>
                     </div>
                 </div>
             </div>
@@ -154,7 +154,7 @@
                     <div class="card-body">
                         <h5 class="card-title description">Item 2</h5>
                         <p class="card-text value">$10.495,00</p>
-                        <a href="#" id="btn2" data-name="Item 2" data-price="$10495" class="btn btn-primary btnorange">Comprar Ahora</a>
+                        <a href="#" id="btn2" data-name="Item 2" data-valor="10495" class="btn btn-primary btnorange">Comprar Ahora</a>
                     </div>
                 </div>
             </div>
@@ -164,7 +164,7 @@
                     <div class="card-body">
                         <h5 class="card-title description">Item 3</h5>
                         <p class="card-text value">$13.994,50</p>
-                        <a href="#" id="btn3" data-name="Item 3" data-price="$13994" class="btn btn-primary btnorange">Comprar Ahora</a>
+                        <a href="#" id="btn3" data-name="Item 3" data-valor="13994.50" class="btn btn-primary btnorange">Comprar Ahora</a>
                     </div>
                 </div>
             </div>
@@ -187,35 +187,43 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    const buyButtons = document.querySelectorAll(".btnorange");
+    const comprarBtn = document.querySelectorAll(".btnorange");
+    const totalElement = document.getElementById("total");
+    let arrayCarrito = [];
 
-    buyButtons.forEach(button => {
+    comprarBtn.forEach(button => {
         button.addEventListener("click", function(event) {
-
+            event.preventDefault();
             const productName = button.getAttribute("data-name");
-            const productValor = button.getAttribute("data-price");
+            const productValor = parseFloat(button.getAttribute("data-valor"));
 
-            // parte innerhtml
+            // crearitems
             const productInfoElement = document.createElement("ul");
             productInfoElement.className = "list-group list-group-horizontal";
-            productInfoElement.innerHTML = `
-                                            <li class="list-group-item flex-fill">Product: ${productName} Price: ${productValor}</li>
-                                            <li><a href="#" id="closeBtn" class="list-group-item btn btn-danger flex-fill" >x</a></li>
-                                            `;
+            productInfoElement.innerHTML = 
+            `
+            <li class="list-group-item flex-fill">Product: ${productName} Price: ${productValor}</li>
+            <li><a href="#" id="closeBtn" class="list-group-item btn btn-danger flex-fill" >x</a></li>
+            `;
             const productInfoContainer = document.getElementById("product-info-container"); 
             
             // boton de borrar
-            // productInfoContainer.innerHTML = '';
-            
             const closeBtn = productInfoElement.querySelector("#closeBtn");
             closeBtn.addEventListener("click", function() {
-                // Close the product information by removing the productInfoElement
-                productInfoElement.remove();
+            productInfoElement.remove();
             });
 
             productInfoContainer.appendChild(productInfoElement);
-            console.log(productInfoElement);
             
+            // suma del total
+            arrayCarrito.push({
+                    name: productName,
+                    price: productValor,
+                    cantidad: 1,
+                    totalPrice: productValor,
+                    });
+            const total = arrayCarrito.reduce((accumulator, item) => accumulator + item.totalPrice, 0);
+            totalElement.textContent = `$${total.toFixed(2)}`;
         });
     });
 });
