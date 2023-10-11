@@ -123,8 +123,8 @@
         <div id="product-info-container">
             <!-- <ul class="list-group list-group-horizontal">
                 <li class="list-group-item ">Product: Item 3 Price: $13994</li>
-                <li><a href="#" class="list-group-item btn btn-danger">x</a></li>
-                </ul> -->
+                <li><a href="#" id="closeBtn" class="list-group-item btn btn-danger">x</a></li>
+            </ul> -->
         </div>
 
         <div class="list-group list-group-flush fw-bold py-2">
@@ -200,13 +200,19 @@ document.addEventListener("DOMContentLoaded", function() {
             productInfoElement.className = "list-group list-group-horizontal";
             productInfoElement.innerHTML = `
                                             <li class="list-group-item flex-fill">Product: ${productName} Price: ${productValor}</li>
-                                            <li><a href="#" class="list-group-item btn btn-danger flex-fill" >x</a></li>
+                                            <li><a href="#" id="closeBtn" class="list-group-item btn btn-danger flex-fill" >x</a></li>
                                             `;
             const productInfoContainer = document.getElementById("product-info-container"); 
             
             // boton de borrar
             // productInfoContainer.innerHTML = '';
             
+            const closeBtn = productInfoElement.querySelector("#closeBtn");
+            closeBtn.addEventListener("click", function() {
+                // Close the product information by removing the productInfoElement
+                productInfoElement.remove();
+            });
+
             productInfoContainer.appendChild(productInfoElement);
             console.log(productInfoElement);
             
