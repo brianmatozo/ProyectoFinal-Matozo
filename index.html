@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <link rel="stylesheet" href="./css/style.css">
     <script src="./js/main.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -83,8 +82,6 @@
 </symbol>
 </svg>
 
-<main>
-
 <!-- Nav -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand bgnaranja rounded-3 mx-2 px-3" href="#">Icon</a>
@@ -114,36 +111,20 @@
     </div>
 </section>
 
+<!-- carrito -->
 <div class="dropdown cart-button">
     <button class="btn btn-primary dropdown-toggle" type="button" id="cart-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Cart
     </button>
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cart-dropdown">
-        <!-- Cart items go here -->
-        <ul id="cart-items" class="list-group">
+        <ul id="" class="list-group">
             <!-- Example: <li class="list-group-item">Product 1 - $10.00</li> -->
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="./img/prod3.png" class="card-img-top p-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Item</h5>
-                        <p class="card-text">$13.994,50</p>
-                        <a href="#" class="btn btn-primary btnorange">Comprar Ahora</a>
-                    </div>
-                </div>
-            </div>
+           <li class="list-group-item">item 1 - 10000</li>
         </ul>
-    </div>
-</div>
 
-<!-- Floating Cart -->
-<div class="floating-cart">
-    <div class="cart-content">
-        <h3>Your Cart</h3>
-        <!-- Cart items go here -->
-        <ul id="cart-items">
-            <!-- Example: <li>Product 1 - $10.00</li> -->
-        </ul>
+        <div class="fw-bold list-group list-group-flush py-2">
+            <li class="list-group-item">TOTAL - 200000000</li>
+        </div>
     </div>
 </div>
 
@@ -156,9 +137,9 @@
                 <div class="card">
                     <img src="./img/prod1.png" class="card-img-top p-3">
                     <div class="card-body">
-                        <h5 class="card-title">Item</h5>
-                        <p class="card-text">$6.995,50</p>
-                        <a href="#" class="btn btn-primary btnorange">Comprar Ahora</a>
+                        <h5 class="card-title description">Item 1</h5>
+                        <p class="card-text value">$6.995,50</p>
+                        <a href="#" id="btn1" data-name="Item 1" data-price="$6995" class="btn btn-primary btnorange">Comprar Ahora</a>
                     </div>
                 </div>
             </div>
@@ -166,9 +147,9 @@
                 <div class="card">
                     <img src="./img/prod2.png" class="card-img-top p-3">
                     <div class="card-body">
-                        <h5 class="card-title">Item</h5>
-                        <p class="card-text">$10.495,00</p>
-                        <a href="#" class="btn btn-primary btnorange">Comprar Ahora</a>
+                        <h5 class="card-title description">Item 2</h5>
+                        <p class="card-text value">$10.495,00</p>
+                        <a href="#" id="btn2" data-name="Item 2" data-price="$10495" class="btn btn-primary btnorange">Comprar Ahora</a>
                     </div>
                 </div>
             </div>
@@ -176,14 +157,18 @@
                 <div class="card">
                     <img src="./img/prod3.png" class="card-img-top p-3">
                     <div class="card-body">
-                        <h5 class="card-title">Item</h5>
-                        <p class="card-text">$13.994,50</p>
-                        <a href="#" class="btn btn-primary btnorange">Comprar Ahora</a>
+                        <h5 class="card-title description">Item 3</h5>
+                        <p class="card-text value">$13.994,50</p>
+                        <a href="#" id="btn3" data-name="Item 3" data-price="$13994" class="btn btn-primary btnorange">Comprar Ahora</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</section>
+
+<section id="product-info-container" class="bg-danger py-5">
+
 </section>
 
 <!-- footer -->
@@ -197,10 +182,8 @@
         </ul>
 </footer>
 
+</body>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-
-</main>
-</body>
 </html>
