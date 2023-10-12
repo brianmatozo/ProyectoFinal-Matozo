@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const comprarBtn = document.querySelectorAll(".btnorange");
-    const totalElement = document.getElementById("total");
-    const removeButtons = document.querySelectorAll(".remove");
-    let selectedItems = [];
+    const sumaTotal = document.getElementById("total");
+    let arrayItems = [];
 
     comprarBtn.forEach(button => {
         button.addEventListener("click", function(event) {
@@ -16,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
             productInfoElement.innerHTML = 
             `
             <li class="list-group-item flex-fill">Product: ${productName} Price: ${productValor}</li>
-            <li><a href="#" id="closeBtn" class="list-group-item btn btn-danger remove flex-fill" >x</a></li>
+            <li><a href="#" id="closeBtn" class="list-group-item btn btn-danger flex-fill" >x</a></li>
             `;
             const productInfoContainer = document.getElementById("product-info-container"); 
             
@@ -29,36 +28,20 @@ document.addEventListener("DOMContentLoaded", function() {
             productInfoContainer.appendChild(productInfoElement);
            
             // me fijo si hayy un item ya existente
-            const existingItemIndex = selectedItems.findIndex(item => item.name === productName);
-            if (existingItemIndex !== -1) {
-                selectedItems[existingItemIndex].quantity++;
-                selectedItems[existingItemIndex].totalPrice += productValor;
+            const arrayItemsExistentes = arrayItems.findIndex(item => item.name === productName);
+            if (arrayItemsExistentes !== -1) {
+                arrayItems[arrayItemsExistentes].cantidad++;
+                arrayItems[arrayItemsExistentes].totalPrice += productValor;
             } else {
-                selectedItems.push({
+                arrayItems.push({
                     name: productName,
                     price: productValor,
-                    quantity: 1,
+                    cantidad: 1,
                     totalPrice: productValor,
                 });
             }
-            const total = selectedItems.reduce((accumulator, item) => accumulator + item.totalPrice, 0);
-            totalElement.textContent = `$${total.toFixed(2)}`;
-
-            // document.addEventListener("click", function(event) {
-            //     if (event.target.classList.contains("btn-danger")) {
-            //         const productName = event.target.getAttribute("data-name");
-            //         const existingItemIndex = selectedItems.findIndex(item => item.name === productName);
-            //         if (existingItemIndex !== -1) {
-            //             const productValor2 = selectedItems[existingItemIndex].price;
-            //             const productQuantity = selectedItems[existingItemIndex].quantity;
-            //             selectedItems.splice(existingItemIndex, 1);
-            //             const total = parseFloat(totalElement.textContent.substring(1)) - productValor2 * productQuantity;
-            //             totalElement.textContent = `$${total.toFixed(2)}`;
-            //             event.target.closest(".card").remove();
-            //         }
-            //     }
-            // });
-
+            const total = arrayItems.reduce((accumulator, item) => accumulator + item.totalPrice, 0);
+            sumaTotal.textContent = `$${total.toFixed(2)}`;
         });
     });
 });
