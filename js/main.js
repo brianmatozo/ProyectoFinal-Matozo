@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const comprarBtn = document.querySelectorAll(".btnorange");
     const sumaTotal = document.getElementById("total");
     const productInfoContainer = document.getElementById("product-info-container");
+    const comprarComprar = document.querySelector('#comprarComprar')
     let arrayItems = [];
 
     loadCartData();
@@ -12,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function() {
             const productName = button.getAttribute("data-name");
             const productValor = parseFloat(button.getAttribute("data-valor"));
 
-            // swal();
             // crearitems
             const productInfoElement = document.createElement("ul");
             productInfoElement.className = "list-group list-group-horizontal";
@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // boton de borrar
             const closeBtn = productInfoElement.querySelector("#closeBtn");
             closeBtn.addEventListener("click", function() {
+                event.preventDefault();
                 productInfoElement.remove();
                 subtractFromTotal(productName, productValor);
                 
@@ -38,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (arrayItemsExistentes !== -1) {
                 arrayItems[arrayItemsExistentes].cantidad++;
                 arrayItems[arrayItemsExistentes].totalPrice += productValor;
+                updateCartView();
             } else {
                 arrayItems.push({
                     name: productName,
@@ -45,10 +47,50 @@ document.addEventListener("DOMContentLoaded", function() {
                     cantidad: 1,
                     totalPrice: productValor,
                 });
+                updateCartView();
             }
             const total = arrayItems.reduce((accumulator, item) => accumulator + item.totalPrice, 0);
             sumaTotal.textContent = `$${total.toFixed(2)}`;
             saveCartData();
+        });
+    });
+
+    comprarComprar.addEventListener("click",()=>{
+        Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-danger"
+            },
+            buttonsStyling: false
+        });
+        Swal.fire({
+            title: "Estas Seguro?",
+            text: "No hay reembolso",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Si, comprar",
+            cancelButtonText: "Cancelar",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire({
+                title: "Felicitaciones!",
+                text: "Haz realizado tu compra",
+                icon: "success"
+              });
+              arrayItems.length=0;
+              productInfoContainer.innerHTML = '';
+              sumaTotal.textContent = `$0.00`;
+              localStorage.removeItem("cartData");
+            } else if (
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              Swal.fire({
+                title: "Cancelado",
+                text: "Haz elegido seguir comprando",
+                icon: "error"
+              });
+            }
         });
     });
 
@@ -90,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const productInfoElement = document.createElement("ul");
             productInfoElement.className = "list-group list-group-horizontal";
             productInfoElement.innerHTML = `
-                <li class="list-group-item flex-fill">Product: ${item.name} Price: ${item.price}</li>
+                <li class="list-group-item flex-fill">Product: ${item.name} Price: ${item.price} Cantidad: ${item.cantidad}</li>
                 <li><a href="#" id="closeBtn" class="list-group-item btn btn-danger flex-fill">x</a></li>
             `;
 
@@ -108,10 +150,5 @@ document.addEventListener("DOMContentLoaded", function() {
         sumaTotal.textContent = `$${total.toFixed(2)}`;
     }
 
-});
 
-// swal({
-//     title: "Good job!",
-//     text: "You clicked the button!",
-//     icon: "success",
-//   });
+});
