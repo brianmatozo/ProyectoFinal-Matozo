@@ -5,20 +5,23 @@ document.addEventListener("DOMContentLoaded", function() {
     const comprarComprar = document.querySelector('#comprarComprar')
     let arrayItems = [];
 
+    //cargar la info del carrito al cargar la pagina
     loadCartData();
 
     comprarBtn.forEach(button => {
         button.addEventListener("click", function(event) {
             event.preventDefault();
+            //estas dos constantes permiten agregar mas cosas
             const productName = button.getAttribute("data-name");
             const productValor = parseFloat(button.getAttribute("data-valor"));
 
-            // crearitems
+            // crear item
+            // esta seccion no se muestra pero si la borro se rompe todo =>
             const productInfoElement = document.createElement("ul");
             productInfoElement.className = "list-group list-group-horizontal";
             productInfoElement.innerHTML = 
             `
-            <li class="list-group-item flex-fill">Product: ${productName} Price: ${productValor}</li>
+            <li class="list-group-item flex-fill"> <strong>${productName}</strong> $${productValor} x</li>
             <li><a href="#" id="closeBtn" class="list-group-item btn btn-danger flex-fill" >x</a></li>
             `;
             const productInfoContainer = document.getElementById("product-info-container"); 
@@ -29,18 +32,21 @@ document.addEventListener("DOMContentLoaded", function() {
                 event.preventDefault();
                 productInfoElement.remove();
                 subtractFromTotal(productName, productValor);
-                
             });
 
             productInfoContainer.appendChild(productInfoElement);
+            // <=
            
-            // me fijo si hayy un item ya existente
+            // zona de arrays
             const arrayItemsExistentes = arrayItems.findIndex(item => item.name === productName);
+
+            // si hay item repetidos se actualiza la cantidad y el precio
             if (arrayItemsExistentes !== -1) {
                 arrayItems[arrayItemsExistentes].cantidad++;
                 arrayItems[arrayItemsExistentes].totalPrice += productValor;
                 updateCartView();
             } else {
+                // si no hay items iguales se cargan los datos en una nueva key
                 arrayItems.push({
                     name: productName,
                     price: productValor,
@@ -55,7 +61,9 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
+    //el boton para terminar la compra es el valor total en si
     comprarComprar.addEventListener("click",()=>{
+        //todo esto es un sweet alert con estilo bootstrap
         Swal.mixin({
             customClass: {
                 confirmButton: "btn btn-success",
@@ -78,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 text: "Haz realizado tu compra",
                 icon: "success"
               });
+              //reiniciar todo al finalizar
               arrayItems.length=0;
               productInfoContainer.innerHTML = '';
               sumaTotal.textContent = `$0.00`;
@@ -94,6 +103,8 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
+    //todo esto es para restar del total
+    //casi lo mismo que el array para añadir pero restando
     function subtractFromTotal(productName, productValor) {
         const arrayItemsNew = arrayItems.findIndex(item => item.name === productName);
     
@@ -120,11 +131,11 @@ document.addEventListener("DOMContentLoaded", function() {
         const cartDataJSON = localStorage.getItem('cartData');
         if (cartDataJSON) {
             arrayItems = JSON.parse(cartDataJSON);
-
             updateCartView();
         }
     }
 
+    // esta funcion me sirve para actualizar la cantidad en vez de agregar items separados
     function updateCartView() {
         productInfoContainer.innerHTML = '';
 
@@ -132,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const productInfoElement = document.createElement("ul");
             productInfoElement.className = "list-group list-group-horizontal";
             productInfoElement.innerHTML = `
-                <li class="list-group-item flex-fill">Product: ${item.name} Price: ${item.price} Cantidad: ${item.cantidad}</li>
+                <li class="list-group-item flex-fill"><strong>${item.name}</strong> $${item.price} x${item.cantidad}</li>
                 <li><a href="#" id="closeBtn" class="list-group-item btn btn-danger flex-fill">x</a></li>
             `;
 
